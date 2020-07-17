@@ -5,6 +5,23 @@ from world import World
 import random
 from ast import literal_eval
 
+#bring in stack
+
+class Stack():
+    def __init__(self):
+        self.stack = []
+    def push(self, value):
+        self.stack.append(value)
+    def pop(self):
+        if self.size() > 0:
+            return self.stack.pop()
+        else:
+            return None
+    def size(self):
+        return len(self.stack)
+
+
+
 # Load world
 world = World()
 
@@ -30,15 +47,35 @@ player = Player(world.starting_room)
 traversal_path = []
 
 
-
 # TRAVERSAL TEST
 visited_rooms = set()
-player.current_room = world.starting_room
-visited_rooms.add(player.current_room)
+#player.current_room = world.starting_room
+#visited_rooms.add(player.current_room)
+
+
+
+all_exits = world.starting_room.get_exits()
+
+the_stack = Stack()
+the_stack.push([world.starting_room])
+
+while the_stack.size():
+    current = the_stack.pop()[-1]
+
+    if current not in visited_rooms:
+        visited_rooms.add(current)
+        
+        for exits in all_exits:
+            if current.get_room_in_direction(exits):
+                traversal_path.append(exits)
+                next_room = current.get_room_in_direction(exits)
+                new_path = [next_room]
+                the_stack.push(new_path)
+
 
 for move in traversal_path:
     player.travel(move)
-    visited_rooms.add(player.current_room)
+    visited_rooms.add(world.starting_room)
 
 if len(visited_rooms) == len(room_graph):
     print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
