@@ -13,6 +13,8 @@ class Stack():
         return len(self.stack)
 
 
+
+
 class Graph:
     def __init__(self):
         self.vertices = {}
@@ -27,6 +29,8 @@ class Graph:
     def get_neighors(self, vertex):
         return self.vertices[vertex]
 
+
+
 def build_graph(ancestors):
     graph = Graph()
     for parent, child in ancestors:
@@ -34,7 +38,11 @@ def build_graph(ancestors):
         graph.add_vertex(child)
         graph.add_edge(child, parent)
     return graph
+
+
+
 def earliest_ancestor(ancestors, starting_node):
+
     graph = build_graph(ancestors)
 
     s = Stack()
@@ -44,6 +52,7 @@ def earliest_ancestor(ancestors, starting_node):
     s.push([starting_node])
 
     longest_path = [starting_node]
+    
     aged_one = -1
 
     while s.size() > 0:

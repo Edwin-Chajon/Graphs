@@ -21,10 +21,8 @@ class Stack():
         return len(self.stack)
 
 
-
 # Load world
 world = World()
-
 
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
