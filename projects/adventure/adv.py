@@ -20,8 +20,6 @@ class Stack():
     def size(self):
         return len(self.stack)
 
-
-
 # Load world
 world = World()
 
